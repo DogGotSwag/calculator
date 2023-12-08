@@ -19,4 +19,13 @@ function setDisplay( string ){
     display.textContent = string;
 }
 
+
+let buttonBox = document.querySelector( ".buttonsBox");
+
+
+buttonBox.addEventListener('click',(event) => {
+    let target = event.target.classList[1];
+    let type = event.target.classList[0];
+    console.log( type );
+});
 setDisplay("Hello");
