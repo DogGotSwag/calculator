@@ -19,6 +19,12 @@ body,html{
     height: 90px;
     border: 2px solid rgb(52, 50, 50);
     background-color:wheat;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 10px;
+    box-sizing: content-box;
 }
 
 .box{
