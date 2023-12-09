@@ -9,6 +9,18 @@ function operate( a, op , b){
     return operations[op](a,b);
 }
 
+let dot = document.querySelector( ".dot" );
+
+function enableDot(){
+    dot.disabled = false;
+}
+
+function disableDot(){
+    dot.disabled = true;
+}
+
+
+
 let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
@@ -17,6 +29,7 @@ let currDisplay = "";
 
 let pastOp = '';
 let pastNumTwo = undefined;
+
 
 let display = document.querySelector(".display");
 
@@ -94,5 +107,9 @@ buttonBox.addEventListener('click',(event) => {
 
         pastOp = '';
         pastNumTwo = undefined;
+    }
+    else if( type == 'dot' ){
+        disableDot();
+        
     }
 });
