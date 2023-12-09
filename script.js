@@ -24,6 +24,10 @@ function disableDot(){
 let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
+let dotBeingUsed = false;
+let decemicals = "";
+
+
 
 let currDisplay = "";
 
@@ -46,11 +50,6 @@ buttonBox.addEventListener('click',(event) => {
     let target = event.target.classList[1];
     let type = event.target.classList[0];
 
-    console.log(numOne);
-    console.log(numTwo);
-    console.log(currOp);
-
-    
     if( numOne && numTwo && currOp.length > 0 && type == "op"){
         numOne = operate( +numOne,currOp, +numTwo);
         setDisplay( numOne+""+target );
@@ -58,16 +57,43 @@ buttonBox.addEventListener('click',(event) => {
         numTwo = undefined;
     }
     else if( !numOne && type == 'number'){
-        numOne = target
-        setDisplay(target);
+        if( dotBeingUsed ){
+            decemicals += target;
+            setDisplay(currDisplay+target);
+            numOne = ".";
+        }else{
+            numOne = target
+            setDisplay(target);
+        }
+        
     }
-    else if( numOne && currOp == "" && type == 'number'){
-        numOne+= target;
+    else if( numOne  && currOp == "" && type == 'number'){
+        if( dotBeingUsed ){
+            if( numOne.includes('.')){
+                ;
+            }
+            else{
+                numOne += '.';
+            }
+            decemicals += target;
+            
+            console.log("dec: "+decemicals);
+            console.log("numOne: "+numOne);
+        }
+        else{
+            numOne+= target;
+        }
+        
         setDisplay( currDisplay += target);
     }
     else if( numOne && type == 'op'){
-        currOp = target;
+        if( dotBeingUsed){
+            numOne = numOne+decemicals;
+        }
+        
         setDisplay( currDisplay += target)
+        currOp = target;
+        
     }
     else if( numOne && (currOp.length>0) && type == 'number'){
         if( !numTwo) numTwo = target;
@@ -104,12 +130,18 @@ buttonBox.addEventListener('click',(event) => {
         numOne = undefined;
         numTwo = undefined;
         currOp = "";
+        decemicals = '';
 
         pastOp = '';
         pastNumTwo = undefined;
+        enableDot();
+        dotBeingUsed = false;
+
     }
     else if( type == 'dot' ){
         disableDot();
+        setDisplay( currDisplay+target);
+        dotBeingUsed = true;
         
     }
 });
