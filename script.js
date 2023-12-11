@@ -177,6 +177,9 @@ buttonBox.addEventListener('click',(event) => {
         disableDot();
         setDisplay( currDisplay+target);
         dotBeingUsed = true;
+
+        if( !numOne || (numOne  && currOp == "")) numOne += '.';
+        else if(numOne && (currOp.length>0) ) numTwo += '.';
         
     }
 });
