@@ -19,6 +19,18 @@ function disableDot(){
     dot.disabled = true;
 }
 
+function clearAll(){
+        numOne = undefined;
+        numTwo = undefined;
+        currOp = "";
+        decemicals = '';
+
+        pastOp = '';
+        pastNumTwo = undefined;
+        enableDot();
+        dotBeingUsed = false;
+}
+
 
 
 let numOne = undefined;
@@ -130,6 +142,11 @@ buttonBox.addEventListener('click',(event) => {
         }
         dotBeingUsed = false;
 
+        if( +numTwo == 0 && currOp == '/'){
+            setDisplay("Don't do that");
+            clearAll();
+        }
+
 
         if( numOne && numTwo){
             result = operate( +numOne,currOp,+numTwo);
@@ -153,16 +170,8 @@ buttonBox.addEventListener('click',(event) => {
         
     }
     else if( type == "clear"){
+        clearAll();
         setDisplay("");
-        numOne = undefined;
-        numTwo = undefined;
-        currOp = "";
-        decemicals = '';
-
-        pastOp = '';
-        pastNumTwo = undefined;
-        enableDot();
-        dotBeingUsed = false;
 
     }
     else if( type == 'dot' ){
