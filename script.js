@@ -24,7 +24,6 @@ function clearAll(){
         numTwo = undefined;
         currOp = "";
         decemicals = '';
-
         pastOp = '';
         pastNumTwo = undefined;
         enableDot();

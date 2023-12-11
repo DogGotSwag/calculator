@@ -37,6 +37,13 @@ body,html{
 
 }
 
+.op{
+    background-color: rgb(114, 58, 58);
+}
+.equals{
+    background-color: green;
+}
+
 .buttonsBox{
     flex-grow: 1;
     display: flex;
