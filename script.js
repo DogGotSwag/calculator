@@ -23,11 +23,9 @@ function clearAll(){
         numOne = undefined;
         numTwo = undefined;
         currOp = "";
-        decemicals = '';
         pastOp = '';
         pastNumTwo = undefined;
         enableDot();
-        dotBeingUsed = false;
 }
 
 
@@ -36,7 +34,6 @@ let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
 let dotBeingUsed = false;
-let decemicals = "";
 
 
 
@@ -59,9 +56,8 @@ let buttonBox = document.querySelector( ".buttonsBox");
 
 buttonBox.addEventListener('click',(event) => {
 
-    console.log( 'one: '+numOne+", op: "+currOp+", two: "+numTwo);
-    console.log(dotBeingUsed);
-    console.log(decemicals);
+    console.log( 'one: '+numOne+"  op: "+currOp+" two: "+numTwo);
+    console.log('pastOp: '+pastOp+"   pastNumTwo: "+pastNumTwo);
 
     let target = event.target.classList[1];
     let type = event.target.classList[0];
@@ -73,73 +69,27 @@ buttonBox.addEventListener('click',(event) => {
         numTwo = undefined;
     }
     else if( !numOne && type == 'number'){
-        if( dotBeingUsed ){
-            decemicals += target;
-            setDisplay(currDisplay+target);
-            numOne = ".";
-        }else{
             numOne = target
             setDisplay(target);
-        }
-        
     }
     else if( numOne  && currOp == "" && type == 'number'){
-        if( dotBeingUsed ){
-            if( !numOne.includes('.')) numOne += '.';
-            decemicals += target;
-            
-            console.log("dec: "+decemicals);
-            console.log("numOne: "+numOne);
-        }
-        else{
             numOne+= target;
-        }
-        
-        setDisplay( currDisplay += target);
+            setDisplay( currDisplay += target);
     }
     else if( numOne && type == 'op'){
-        if( dotBeingUsed){
-            numOne = numOne+decemicals;
-            dotBeingUsed = false;
-            enableDot();
-            decemicals = '';
-        }
-        
+        enableDot();
         setDisplay( currDisplay += target)
         currOp = target;
         
     }
     else if( numOne && (currOp.length>0) && type == 'number'){
-        if(dotBeingUsed){
-            if( !numTwo ){
-                decemicals += target;
-                numTwo = ".";
-            }
-            else{
-                if( !numTwo.includes('.')) numTwo += '.';
-                decemicals += target;
-            }
-        }
-        else{
             if( !numTwo) numTwo = target;
             else numTwo += target;
-        }
-        
-
-        
-        
-        setDisplay( currDisplay += target);
+            setDisplay( currDisplay += target);
     }
     
     else if( type == "equals"){
         let result;
-        if( dotBeingUsed){
-            numTwo = numTwo+decemicals;
-            dotBeingUsed = false;
-            enableDot();
-            decemicals = '';
-        }
-        dotBeingUsed = false;
 
         if( +numTwo == 0 && currOp == '/'){
             setDisplay("Don't do that");
@@ -159,7 +109,7 @@ buttonBox.addEventListener('click',(event) => {
             currOp = "";
             setDisplay(result);
         }
-        else if(numOne && !numTwo){
+        else if(numOne.length > 0 && !numTwo){
             result = operate( +numOne,pastOp,+pastNumTwo);
             result = +result.toFixed(2);
             numOne = result;
@@ -176,10 +126,12 @@ buttonBox.addEventListener('click',(event) => {
     else if( type == 'dot' ){
         disableDot();
         setDisplay( currDisplay+target);
-        dotBeingUsed = true;
 
-        if( !numOne || (numOne  && currOp == "")) numOne += '.';
-        else if(numOne && (currOp.length>0) ) numTwo += '.';
+        if( !numOne ) numOne = '.';
+        else if( numOne  && currOp == "" ) numOne += '.';
+        else if(numOne && (currOp.length>0) ){
+            (!numTwo) ? numTwo = '.' : numTwo += '.'; 
+        }
         
     }
 });
