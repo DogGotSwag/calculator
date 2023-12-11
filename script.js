@@ -28,14 +28,9 @@ function clearAll(){
         enableDot();
 }
 
-
-
 let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
-let dotBeingUsed = false;
-
-
 
 let currDisplay = "";
 
@@ -44,15 +39,12 @@ let pastNumTwo = undefined;
 
 
 let display = document.querySelector(".display");
-
 function setDisplay( string ){
     display.textContent = string;
     currDisplay = string;
 }
 
-
 let buttonBox = document.querySelector( ".buttonsBox");
-
 
 buttonBox.addEventListener('click',(event) => {
 
@@ -100,7 +92,7 @@ buttonBox.addEventListener('click',(event) => {
         if( numOne && numTwo){
             result = operate( +numOne,currOp,+numTwo);
             result = +result.toFixed(5);
-            numOne = result;
+            numOne = result.toString();
 
             pastNumTwo = numTwo;
             numTwo = undefined;
@@ -112,7 +104,7 @@ buttonBox.addEventListener('click',(event) => {
         else if(numOne.length > 0 && !numTwo){
             result = operate( +numOne,pastOp,+pastNumTwo);
             result = +result.toFixed(2);
-            numOne = result;
+            numOne = result.toString();
             numTwo = undefined;
             setDisplay(result);
         }
