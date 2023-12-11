@@ -74,12 +74,7 @@ buttonBox.addEventListener('click',(event) => {
     }
     else if( numOne  && currOp == "" && type == 'number'){
         if( dotBeingUsed ){
-            if( numOne.includes('.')){
-                ;
-            }
-            else{
-                numOne += '.';
-            }
+            if( !numOne.includes('.')) numOne += '.';
             decemicals += target;
             
             console.log("dec: "+decemicals);
@@ -108,6 +103,10 @@ buttonBox.addEventListener('click',(event) => {
             if( !numTwo ){
                 decemicals += target;
                 numTwo = ".";
+            }
+            else{
+                if( !numTwo.includes('.')) numTwo += '.';
+                decemicals += target;
             }
         }
         else{
