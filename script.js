@@ -47,6 +47,11 @@ let buttonBox = document.querySelector( ".buttonsBox");
 
 
 buttonBox.addEventListener('click',(event) => {
+
+    console.log( 'one: '+numOne+", op: "+currOp+", two: "+numTwo);
+    console.log(dotBeingUsed);
+    console.log(decemicals);
+
     let target = event.target.classList[1];
     let type = event.target.classList[0];
 
@@ -89,6 +94,9 @@ buttonBox.addEventListener('click',(event) => {
     else if( numOne && type == 'op'){
         if( dotBeingUsed){
             numOne = numOne+decemicals;
+            dotBeingUsed = false;
+            enableDot();
+            decemicals = '';
         }
         
         setDisplay( currDisplay += target)
@@ -96,14 +104,34 @@ buttonBox.addEventListener('click',(event) => {
         
     }
     else if( numOne && (currOp.length>0) && type == 'number'){
-        if( !numTwo) numTwo = target;
-        else numTwo += target;
+        if(dotBeingUsed){
+            if( !numTwo ){
+                decemicals += target;
+                numTwo = ".";
+            }
+        }
+        else{
+            if( !numTwo) numTwo = target;
+            else numTwo += target;
+        }
+        
+
+        
         
         setDisplay( currDisplay += target);
     }
     
     else if( type == "equals"){
         let result;
+        if( dotBeingUsed){
+            numTwo = numTwo+decemicals;
+            dotBeingUsed = false;
+            enableDot();
+            decemicals = '';
+        }
+        dotBeingUsed = false;
+
+
         if( numOne && numTwo){
             result = operate( +numOne,currOp,+numTwo);
             result = +result.toFixed(5);
