@@ -28,6 +28,10 @@ function clearAll(){
         enableDot();
 }
 
+function displayBackSpace(){
+    setDisplay( currDisplay.slice( 0, currDisplay.length-1) );
+}
+
 let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
@@ -99,14 +103,14 @@ buttonBox.addEventListener('click',(event) => {
 
             pastOp = currOp;
             currOp = "";
-            setDisplay(result);
+            setDisplay(result.toString());
         }
         else if(numOne.length > 0 && !numTwo){
             result = operate( +numOne,pastOp,+pastNumTwo);
             result = +result.toFixed(2);
             numOne = result.toString();
             numTwo = undefined;
-            setDisplay(result);
+            setDisplay(result.toString());
         }
         
     }
@@ -127,6 +131,31 @@ buttonBox.addEventListener('click',(event) => {
         
     }
     else if( type == "backSpace"){
-        
+        if( numOne.length > 0 && currOp == ''){
+            if( numOne.length == 1){
+                numOne = undefined;
+                setDisplay('');
+            }
+            else{
+                numOne = numOne.slice(0, numOne.length-1);
+                displayBackSpace();
+            }
+        }
+        else if( currOp != '' && !numTwo){
+            currOp = '';
+            displayBackSpace();
+        }
+        else if( currOp != '' && numTwo.length > 0){
+
+            if( numTwo.length == 1){
+                numTwo = undefined;
+                displayBackSpace();
+            }
+            else{
+                numTwo = numTwo.slice(0, numTwo.length-1);
+                displayBackSpace();
+            }
+        }
+
     }
 });
