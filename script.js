@@ -32,7 +32,8 @@ function clearAll(){
 }
 
 function displayBackSpace(){
-    setDisplay( currDisplay.slice( 0, currDisplay.length-1) );
+    currDisplay = currDisplay.slice( 0, currDisplay.length-1 );
+    setDisplay( currDisplay );
 }
 
 let numOne = undefined;
@@ -76,10 +77,18 @@ buttonBox.addEventListener('click',(event) => {
             setDisplay( currDisplay += target);
     }
     else if( numOne && type == 'op'){
-        deletePast();
-        enableDot();
-        setDisplay( currDisplay += target)
-        currOp = target;
+        if( currOp.length > 0){
+            currOp = target;
+            displayBackSpace();
+            setDisplay(currDisplay += target);
+        }
+        else{
+            deletePast();
+            enableDot();
+            setDisplay( currDisplay += target)
+            currOp = target;
+        }
+        
         
     }
     else if( numOne && (currOp.length>0) && type == 'number'){
