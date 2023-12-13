@@ -19,12 +19,15 @@ function disableDot(){
     dot.disabled = true;
 }
 
+function deletePast(){
+    pastOp = '';
+    pastNumTwo = undefined;
+}
 function clearAll(){
         numOne = undefined;
         numTwo = undefined;
         currOp = "";
-        pastOp = '';
-        pastNumTwo = undefined;
+        deletePast();
         enableDot();
 }
 
@@ -73,6 +76,7 @@ buttonBox.addEventListener('click',(event) => {
             setDisplay( currDisplay += target);
     }
     else if( numOne && type == 'op'){
+        deletePast();
         enableDot();
         setDisplay( currDisplay += target)
         currOp = target;
@@ -131,6 +135,7 @@ buttonBox.addEventListener('click',(event) => {
         
     }
     else if( type == "backSpace"){
+        deletePast();
         if( numOne.length > 0 && currOp == ''){
             if( numOne.length == 1){
                 numOne = undefined;
