@@ -126,4 +126,7 @@ buttonBox.addEventListener('click',(event) => {
         }
         
     }
+    else if( type == "backSpace"){
+        
+    }
 });
