@@ -109,7 +109,7 @@ buttonBox.addEventListener('click',(event) => {
             currOp = "";
             setDisplay(result.toString());
         }
-        else if(numOne.length > 0 && !numTwo){
+        else if(numOne.length > 0 && !numTwo && pastNumTwo){
             result = operate( +numOne,pastOp,+pastNumTwo);
             result = +result.toFixed(2);
             numOne = result.toString();
