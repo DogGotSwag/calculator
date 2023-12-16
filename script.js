@@ -74,6 +74,34 @@ function dotWasPressed(){
     }
 }
 
+function equalsWasPressed(){
+    let result;
+        if( +numTwo == 0 && currOp == '/'){
+            setDisplay("Don't do that");
+            clearAll();
+        }
+        
+        if( numOne && numTwo){
+            result = operate( +numOne,currOp,+numTwo);
+            result = +result.toFixed(5);
+            numOne = result.toString();
+
+            pastNumTwo = numTwo;
+            numTwo = undefined;
+
+            pastOp = currOp;
+            currOp = "";
+            setDisplay(result.toString());
+        }
+        else if(numOne.length > 0 && !numTwo && pastNumTwo){
+            result = operate( +numOne,pastOp,+pastNumTwo);
+            result = +result.toFixed(2);
+            numOne = result.toString();
+            numTwo = undefined;
+            setDisplay(result.toString());
+        }
+}
+
 let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
@@ -94,14 +122,17 @@ let buttonBox = document.querySelector( ".buttonsBox");
 
 let body = document.querySelector('body');
 body.addEventListener( 'keydown', (event)=>{
-    let keyPresses = event.key;
-    alert(keyPresses);
-    if( keyPresses == 'Backspace'){
+    let keyPressed = event.key;
+    // alert(keyPressed);
+    if( keyPressed == 'Backspace'){
         deletePast();
         backSpaceWasPressed();
     }
-    else if( keyPresses == "."){
+    else if( keyPressed == "."){
         dotWasPressed();
+    }
+    else if( keyPressed == '='){
+        equalsWasPressed();
     }
 });
 
@@ -149,34 +180,7 @@ buttonBox.addEventListener('click',(event) => {
     }
     
     else if( type == "equals"){
-        let result;
-
-        if( +numTwo == 0 && currOp == '/'){
-            setDisplay("Don't do that");
-            clearAll();
-        }
-
-
-        if( numOne && numTwo){
-            result = operate( +numOne,currOp,+numTwo);
-            result = +result.toFixed(5);
-            numOne = result.toString();
-
-            pastNumTwo = numTwo;
-            numTwo = undefined;
-
-            pastOp = currOp;
-            currOp = "";
-            setDisplay(result.toString());
-        }
-        else if(numOne.length > 0 && !numTwo && pastNumTwo){
-            result = operate( +numOne,pastOp,+pastNumTwo);
-            result = +result.toFixed(2);
-            numOne = result.toString();
-            numTwo = undefined;
-            setDisplay(result.toString());
-        }
-        
+        equalsWasPressed();
     }
     else if( type == "clear"){
         clearAll();
