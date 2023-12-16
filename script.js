@@ -54,6 +54,11 @@ function setDisplay( string ){
 
 let buttonBox = document.querySelector( ".buttonsBox");
 
+let body = document.querySelector('body');
+body.addEventListener( 'keydown', (event)=>{
+    alert(event.key);
+});
+
 buttonBox.addEventListener('click',(event) => {
 
     console.log( 'one: '+numOne+"  op: "+currOp+" two: "+numTwo);
