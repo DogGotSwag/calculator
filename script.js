@@ -36,6 +36,34 @@ function displayBackSpace(){
     setDisplay( currDisplay );
 }
 
+function backSpaceWasPressed(){
+    if( numOne.length > 0 && currOp == ''){
+        if( numOne.length == 1){
+            numOne = undefined;
+            setDisplay('');
+        }
+        else{
+            numOne = numOne.slice(0, numOne.length-1);
+            displayBackSpace();
+        }
+    }
+    else if( currOp != '' && !numTwo){
+        currOp = '';
+        displayBackSpace();
+    }
+    else if( currOp != '' && numTwo.length > 0){
+
+        if( numTwo.length == 1){
+            numTwo = undefined;
+            displayBackSpace();
+        }
+        else{
+            numTwo = numTwo.slice(0, numTwo.length-1);
+            displayBackSpace();
+        }
+    }
+}
+
 let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
@@ -57,8 +85,9 @@ let buttonBox = document.querySelector( ".buttonsBox");
 let body = document.querySelector('body');
 body.addEventListener( 'keydown', (event)=>{
     let keyPresses = event.key;
-    if( keyPresses = 'backspace'){
-        alert( 'yes');
+    if( keyPresses == 'Backspace'){
+        deletePast();
+        backSpaceWasPressed();
     }
 });
 
@@ -153,31 +182,6 @@ buttonBox.addEventListener('click',(event) => {
     }
     else if( type == "backSpace"){
         deletePast();
-        if( numOne.length > 0 && currOp == ''){
-            if( numOne.length == 1){
-                numOne = undefined;
-                setDisplay('');
-            }
-            else{
-                numOne = numOne.slice(0, numOne.length-1);
-                displayBackSpace();
-            }
-        }
-        else if( currOp != '' && !numTwo){
-            currOp = '';
-            displayBackSpace();
-        }
-        else if( currOp != '' && numTwo.length > 0){
-
-            if( numTwo.length == 1){
-                numTwo = undefined;
-                displayBackSpace();
-            }
-            else{
-                numTwo = numTwo.slice(0, numTwo.length-1);
-                displayBackSpace();
-            }
-        }
-
+        backSpaceWasPressed();
     }
 });
