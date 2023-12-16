@@ -56,7 +56,10 @@ let buttonBox = document.querySelector( ".buttonsBox");
 
 let body = document.querySelector('body');
 body.addEventListener( 'keydown', (event)=>{
-    alert(event.key);
+    let keyPresses = event.key;
+    if( keyPresses = 'backspace'){
+        alert( 'yes');
+    }
 });
 
 buttonBox.addEventListener('click',(event) => {
