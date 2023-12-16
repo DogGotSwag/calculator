@@ -64,6 +64,16 @@ function backSpaceWasPressed(){
     }
 }
 
+function dotWasPressed(){
+    disableDot();
+    setDisplay( currDisplay+'.');
+    if( !numOne ) numOne = '.';
+    else if( numOne  && currOp == "" ) numOne += '.';
+    else if(numOne && (currOp.length>0) ){
+        (!numTwo) ? numTwo = '.' : numTwo += '.'; 
+    }
+}
+
 let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
@@ -85,9 +95,13 @@ let buttonBox = document.querySelector( ".buttonsBox");
 let body = document.querySelector('body');
 body.addEventListener( 'keydown', (event)=>{
     let keyPresses = event.key;
+    alert(keyPresses);
     if( keyPresses == 'Backspace'){
         deletePast();
         backSpaceWasPressed();
+    }
+    else if( keyPresses == "."){
+        dotWasPressed();
     }
 });
 
@@ -170,15 +184,7 @@ buttonBox.addEventListener('click',(event) => {
 
     }
     else if( type == 'dot' ){
-        disableDot();
-        setDisplay( currDisplay+target);
-
-        if( !numOne ) numOne = '.';
-        else if( numOne  && currOp == "" ) numOne += '.';
-        else if(numOne && (currOp.length>0) ){
-            (!numTwo) ? numTwo = '.' : numTwo += '.'; 
-        }
-        
+        dotWasPressed();
     }
     else if( type == "backSpace"){
         deletePast();
