@@ -37,6 +37,7 @@ function displayBackSpace(){
 }
 
 function backSpaceWasPressed(){
+    deletePast();
     if( numOne.length > 0 && currOp == ''){
         if( numOne.length == 1){
             numOne = undefined;
@@ -168,7 +169,6 @@ let body = document.querySelector('body');
 body.addEventListener( 'keydown', (event)=>{
     let keyPressed = event.key;
     if( keyPressed == 'Backspace'){
-        deletePast();
         backSpaceWasPressed();
     }
     else if( keyPressed == "."){
@@ -212,7 +212,6 @@ buttonBox.addEventListener('click',(event) => {
         dotWasPressed();
     }
     else if( type == "backSpace"){
-        deletePast();
         backSpaceWasPressed();
     }
 });
