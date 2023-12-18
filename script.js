@@ -107,8 +107,28 @@ function seaWasPressed(){
     setDisplay("");
 }
 
-function opWasPressed(){
-
+function opWasPressed( target ){
+    if( numOne && numTwo && currOp.length > 0 ){
+        numOne = operate( +numOne,currOp, +numTwo);
+        setDisplay( numOne+""+target );
+        currOp = target;
+        numTwo = undefined;
+    }
+    else if( numOne){
+        if( currOp.length > 0){
+            currOp = target;
+            displayBackSpace();
+            setDisplay(currDisplay += target);
+        }
+        else{
+            deletePast();
+            enableDot();
+            setDisplay( currDisplay += target)
+            currOp = target;
+        }
+        
+        
+    }
 }
 function numWasPressed(){
 
@@ -149,6 +169,10 @@ body.addEventListener( 'keydown', (event)=>{
     else if( keyPressed == 'c'){
         seaWasPressed();
     }
+    else if( keyPressed == '+' || keyPressed == '/' 
+    || keyPressed == '*' || keyPressed == '-'){
+        opWasPressed( keyPressed );
+    }
 });
 
 buttonBox.addEventListener('click',(event) => {
@@ -159,27 +183,7 @@ buttonBox.addEventListener('click',(event) => {
     let target = event.target.classList[1];
     let type = event.target.classList[0];
     if( type == 'op'){
-        if( numOne && numTwo && currOp.length > 0 ){
-            numOne = operate( +numOne,currOp, +numTwo);
-            setDisplay( numOne+""+target );
-            currOp = target;
-            numTwo = undefined;
-        }
-        else if( numOne){
-            if( currOp.length > 0){
-                currOp = target;
-                displayBackSpace();
-                setDisplay(currDisplay += target);
-            }
-            else{
-                deletePast();
-                enableDot();
-                setDisplay( currDisplay += target)
-                currOp = target;
-            }
-            
-            
-        }
+        opWasPressed( target );
     }
     else if( type == 'number'){
         if( !numOne ){
