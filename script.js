@@ -130,8 +130,20 @@ function opWasPressed( target ){
         
     }
 }
-function numWasPressed(){
-
+function numWasPressed( target ){
+    if( !numOne ){
+        numOne = target
+        setDisplay(target);
+    }
+    else if( numOne  && currOp == ""){
+        numOne+= target;
+        setDisplay( currDisplay += target);
+    }
+    else if( numOne && (currOp.length>0)){
+        if( !numTwo) numTwo = target;
+        else numTwo += target;
+        setDisplay( currDisplay += target);
+    }
 }
 
 let numOne = undefined;
@@ -186,19 +198,7 @@ buttonBox.addEventListener('click',(event) => {
         opWasPressed( target );
     }
     else if( type == 'number'){
-        if( !numOne ){
-            numOne = target
-            setDisplay(target);
-        }
-        else if( numOne  && currOp == ""){
-            numOne+= target;
-            setDisplay( currDisplay += target);
-        }
-        else if( numOne && (currOp.length>0) && type == 'number'){
-            if( !numTwo) numTwo = target;
-            else numTwo += target;
-            setDisplay( currDisplay += target);
-        }
+        numWasPressed( target );
     }
     else if( type == "equals"){
         equalsWasPressed();
