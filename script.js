@@ -102,6 +102,13 @@ function equalsWasPressed(){
         }
 }
 
+function opWasPressed(){
+
+}
+function numWasPressed(){
+    
+}
+
 let numOne = undefined;
 let currOp = '';
 let numTwo = undefined;
@@ -143,42 +150,44 @@ buttonBox.addEventListener('click',(event) => {
 
     let target = event.target.classList[1];
     let type = event.target.classList[0];
-
-    if( numOne && numTwo && currOp.length > 0 && type == "op"){
-        numOne = operate( +numOne,currOp, +numTwo);
-        setDisplay( numOne+""+target );
-        currOp = target;
-        numTwo = undefined;
+    if( type == 'op'){
+        if( numOne && numTwo && currOp.length > 0 ){
+            numOne = operate( +numOne,currOp, +numTwo);
+            setDisplay( numOne+""+target );
+            currOp = target;
+            numTwo = undefined;
+        }
+        else if( numOne){
+            if( currOp.length > 0){
+                currOp = target;
+                displayBackSpace();
+                setDisplay(currDisplay += target);
+            }
+            else{
+                deletePast();
+                enableDot();
+                setDisplay( currDisplay += target)
+                currOp = target;
+            }
+            
+            
+        }
     }
-    else if( !numOne && type == 'number'){
+    else if( type == 'number'){
+        if( !numOne ){
             numOne = target
             setDisplay(target);
-    }
-    else if( numOne  && currOp == "" && type == 'number'){
+        }
+        else if( numOne  && currOp == ""){
             numOne+= target;
             setDisplay( currDisplay += target);
-    }
-    else if( numOne && type == 'op'){
-        if( currOp.length > 0){
-            currOp = target;
-            displayBackSpace();
-            setDisplay(currDisplay += target);
         }
-        else{
-            deletePast();
-            enableDot();
-            setDisplay( currDisplay += target)
-            currOp = target;
-        }
-        
-        
-    }
-    else if( numOne && (currOp.length>0) && type == 'number'){
+        else if( numOne && (currOp.length>0) && type == 'number'){
             if( !numTwo) numTwo = target;
             else numTwo += target;
             setDisplay( currDisplay += target);
+        }
     }
-    
     else if( type == "equals"){
         equalsWasPressed();
     }
