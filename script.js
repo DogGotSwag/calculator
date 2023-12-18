@@ -102,11 +102,16 @@ function equalsWasPressed(){
         }
 }
 
+function seaWasPressed(){
+    clearAll();
+    setDisplay("");
+}
+
 function opWasPressed(){
 
 }
 function numWasPressed(){
-    
+
 }
 
 let numOne = undefined;
@@ -140,6 +145,9 @@ body.addEventListener( 'keydown', (event)=>{
     }
     else if( keyPressed == '='){
         equalsWasPressed();
+    }
+    else if( keyPressed == 'c'){
+        seaWasPressed();
     }
 });
 
@@ -192,9 +200,7 @@ buttonBox.addEventListener('click',(event) => {
         equalsWasPressed();
     }
     else if( type == "clear"){
-        clearAll();
-        setDisplay("");
-
+        seaWasPressed();
     }
     else if( type == 'dot' ){
         dotWasPressed();
