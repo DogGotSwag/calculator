@@ -167,7 +167,6 @@ let buttonBox = document.querySelector( ".buttonsBox");
 let body = document.querySelector('body');
 body.addEventListener( 'keydown', (event)=>{
     let keyPressed = event.key;
-    
     if( keyPressed == 'Backspace'){
         deletePast();
         backSpaceWasPressed();
@@ -175,7 +174,7 @@ body.addEventListener( 'keydown', (event)=>{
     else if( keyPressed == "."){
         dotWasPressed();
     }
-    else if( keyPressed == '='){
+    else if( keyPressed == '=' || keyPressed == 'Enter'){
         equalsWasPressed();
     }
     else if( keyPressed == 'c'){
