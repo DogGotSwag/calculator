@@ -174,8 +174,8 @@ body.addEventListener( 'keydown', (event)=>{
     else if( keyPressed == "."){
         dotWasPressed();
     }
-    else if( keyPressed == '=' || keyPressed == 'Enter'){
-        equalsWasPressed();
+    else if( keyPressed == '='){
+        
     }
     else if( keyPressed == 'c'){
         seaWasPressed();
@@ -183,6 +183,10 @@ body.addEventListener( 'keydown', (event)=>{
     else if( keyPressed == '+' || keyPressed == '/' 
     || keyPressed == '*' || keyPressed == '-'){
         opWasPressed( keyPressed );
+    }
+    else if( keyPressed == 'Enter'){
+        event.preventDefault();
+        equalsWasPressed();
     }
     else if( +keyPressed >= 0){
         numWasPressed( keyPressed );
